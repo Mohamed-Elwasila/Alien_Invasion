@@ -40,6 +40,7 @@ class Ship:
             self.y += self.settings.ship_speed # Move down
         
         self.rect.x = self.x  # Update rect object from self.x
+        self.rect.y = self.y  # Update rect object from self.y
 
 
     def blitme(self):
