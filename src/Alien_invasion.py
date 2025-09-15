@@ -48,6 +48,8 @@ class AlienInvasion:
                 elif event.key == pygame.K_DOWN:
                     # Move the ship down.
                     self.ship.moving_down = True   # self.ship.rect.y += 3
+                elif event.key == pygame.K_q:
+                    sys.exit()
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
                     # Stop moving the ship to the right.
@@ -61,6 +63,7 @@ class AlienInvasion:
                 elif event.key == pygame.K_DOWN:
                     # Stop moving the ship down.
                     self.ship.moving_down = False
+                    
 
 
     def update_screen(self):
