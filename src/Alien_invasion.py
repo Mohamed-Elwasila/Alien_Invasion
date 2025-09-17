@@ -16,7 +16,7 @@ class AlienInvasion:
         self.settings = Settings()
 
         # Create a fullscreen window.
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((0, 0), (pygame.FULLSCREEN))
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         
@@ -39,35 +39,40 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.SCALED:
+                    self.settings.screen_width = self.screen.get_rect().width
+                    self.settings.screen_height = self.screen.get_rect().height
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     # Move the ship to the right.
                     self.ship.moving_right = True  # self.ship.rect.x += 3
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     # Move the ship to the left.
                     self.ship.moving_left = True   # self.ship.rect.x -= 3
-                elif event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP or event.key == pygame.K_w:
                     # Move the ship up.
                     self.ship.moving_up = True   # self.ship.rect.y -= 3
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     # Move the ship down.
                     self.ship.moving_down = True   # self.ship.rect.y += 3
                 elif event.key == pygame.K_q:
                     sys.exit()
+                elif event.key == pygame.K_ESCAPE:
+                    self.screen = pygame.display.set_mode((1200, 800))
+
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     # Stop moving the ship to the right.
                     self.ship.moving_right = False
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     # Stop moving the ship to the left.
                     self.ship.moving_left = False
-                elif event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP or event.key == pygame.K_w:
                     # Stop moving the ship up.
                     self.ship.moving_up = False
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     # Stop moving the ship down.
                     self.ship.moving_down = False
-
 
 
     def update_screen(self):
