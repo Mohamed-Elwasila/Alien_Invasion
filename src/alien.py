@@ -7,7 +7,7 @@ class Alien(Sprite):
     
     def __init__(self, ai_game):
         """Initialize the alien and set its starting position."""
-        super().__init__()
+        super().__init__() # Call the parent class (Sprite) constructor.
         self.screen = ai_game.screen
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
