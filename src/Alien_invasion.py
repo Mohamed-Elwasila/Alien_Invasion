@@ -5,6 +5,7 @@ import pygame
 
 from settings import Settings
 from game_stats import GameStats
+from button import Button
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -27,6 +28,9 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((0, 0), (pygame.FULLSCREEN))
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
+        
+        # Make the Play button.
+        self.play_button = Button(self, "Play")        
         
         pygame.display.set_caption("Alien Invasion")
         
@@ -130,6 +134,7 @@ class AlienInvasion:
         """Update position of bullets and get rid of old bullets."""
         # Update bullet positions.
         self.bullets.update()
+        
         # Get rid of bullets that have disappeared.
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
@@ -243,6 +248,12 @@ class AlienInvasion:
         self.ship.blitme()
         self.alien.draw(self.screen)
 
+        # Draw the play button if the game is inactive.
+        if not self.game_active:
+            self.play_button.draw_button()
+            # pygame.display.flip()
+            # self._check_play_button()
+            
         # Make the most recently drawn screen visible.
         pygame.display.flip()
         
