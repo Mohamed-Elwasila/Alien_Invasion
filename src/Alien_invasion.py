@@ -19,6 +19,9 @@ class AlienInvasion:
         self.clock = pygame.time.Clock()
         self.settings = Settings()
         
+        # Start Alien Invasion in an active state.
+        self.game_active = False
+        
 
         # Create a fullscreen window.
         self.screen = pygame.display.set_mode((0, 0), (pygame.FULLSCREEN))
@@ -36,14 +39,18 @@ class AlienInvasion:
         
         self._create_fleet()
 
+
     def run_game(self):
         """Start the main loop for the game"""
         while True:
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self.update_aliens()
-             # Get rid of bullets that have disappeared.
+            
+            if self.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self.update_aliens()
+            
+            # Get rid of bullets that have disappeared.
             self.update_screen()
             self.clock.tick(60)
 
@@ -110,7 +117,6 @@ class AlienInvasion:
                 elif event.key == pygame.K_e:
                     self.settings.ship_speed -= 3
                     self.ship.moving_right = False
-                
 
 
     # Bullets
@@ -119,7 +125,6 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
-
 
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
@@ -131,8 +136,7 @@ class AlienInvasion:
                 self.bullets.remove(bullet)
         
         self._check_bullet_alien_collisions()            
-                
-        
+                  
     def _check_bullet_alien_collisions(self):
         """Respond to bullet-alien collisions."""
         print(len(self.bullets))
@@ -197,19 +201,6 @@ class AlienInvasion:
         for alien in self.alien.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
-
-
-    # Screen update
-    def update_screen(self):
-        """Update images on the screen, and flip to the new screen."""
-        self.screen.fill(self.settings.bg_color)
-        for bullet in self.bullets.sprites():
-            bullet.draw_bullet()
-        self.ship.blitme()
-        self.alien.draw(self.screen)
-
-        # Make the most recently drawn screen visible.
-        pygame.display.flip()
         
     
     # Ship hit
@@ -230,7 +221,7 @@ class AlienInvasion:
             # Pause.
             sleep(0.5)
         else:
-            self.stats.game_active = False
+            self.game_active = False
             pygame.mouse.set_visible(True)
         
     def _check_aliens_bottom(self):
@@ -241,7 +232,19 @@ class AlienInvasion:
                 # Treat this the same as if the ship got hit.
                 self._ship_hit()
                 break
-        
+            
+
+    # Screen update
+    def update_screen(self):
+        """Update images on the screen, and flip to the new screen."""
+        self.screen.fill(self.settings.bg_color)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+        self.ship.blitme()
+        self.alien.draw(self.screen)
+
+        # Make the most recently drawn screen visible.
+        pygame.display.flip()
         
 
 if __name__ == '__main__':
