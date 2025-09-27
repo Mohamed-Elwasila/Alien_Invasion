@@ -23,7 +23,6 @@ class AlienInvasion:
         # Start Alien Invasion in an active state.
         self.game_active = False
         
-
         # Create a fullscreen window.
         self.screen = pygame.display.set_mode((0, 0), (pygame.FULLSCREEN))
         self.settings.screen_width = self.screen.get_rect().width
@@ -161,6 +160,7 @@ class AlienInvasion:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
     
 
     # Aliens
@@ -245,8 +245,10 @@ class AlienInvasion:
             
     def _check_play_button(self, mouse_pos):
         """Start a new game when the player clicks Play."""
-        if self.play_button.rect.collidepoint(mouse_pos):
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.game_active:
             # Reset the game statistics.
+            self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
             self.game_active = True
             
