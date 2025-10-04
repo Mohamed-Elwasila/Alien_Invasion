@@ -34,7 +34,8 @@ class AlienInvasion:
         
         pygame.display.set_caption("Alien Invasion")
         
-        #Create an instance to store game statistics.
+        #Create an instance to store game statistics
+        #and create a scoreboard.
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
 
@@ -158,6 +159,14 @@ class AlienInvasion:
         # If so, get rid of the bullet and the alien.
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.alien, True, True)
+        
+        if collisions:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points
+            self.sb.prep_score()
+            self.sb.check_high_score()
+        
+        
         if not self.alien:
             # Destroy existing bullets and create new fleet.
             self.bullets.empty()
@@ -252,6 +261,7 @@ class AlienInvasion:
             # Reset the game statistics.
             self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
+            self.sb.prep_score()
             self.game_active = True
             
             # Hide the mouse cursor.
