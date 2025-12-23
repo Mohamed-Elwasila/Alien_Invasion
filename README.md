@@ -1,24 +1,34 @@
 # Alien Invasion 👾
+![Python](https://img.shields.io/badge/python-3.x-blue.svg)
+![Pygame](https://img.shields.io/badge/pygame-2.x-green.svg)
 
-A simple **Pygame** project where you control a ship to shoot down aliens.
+![Gameplay Screenshot](images/game_screenshot.png)
+
+A classic space shooter built with **Pygame** where you defend Earth against waves of invading felines.
+
+## Features
+* Progressive difficulty - aliens speed up as you advance
+* Score tracking and high score system
+* Multiple lives
 
 ## Quick Start
-
 ```bash
 git clone git@github.com:Mohamed-Elwasila/Alien_Invasion.git
 cd Alien_Invasion
-pip install pygame
-python alien_invasion.py  # or main.py if available
+sudo apt install python3-pygame  # Ubuntu/Debian
+# or: pip install pygame
+python3 src/Alien_invasion.py
 ```
 
 ## Controls
+* **← / →** or **A / D** → Move Left / Right
+* **Space** → Shoot
+* **Q** → Quit
+* **P** → Pause 
 
-* **← / →** or **A / D** —> Move Left / Right
-* **W / S** —> Move Left / Right
-* **Q / E** —> Left / Right (double speed)
-* **Space** —> Shoot
-* **O** — Quit
+## Requirements
+* Python 3.x
+* Pygame 2.x
 
-## License
 
-MIT
+
